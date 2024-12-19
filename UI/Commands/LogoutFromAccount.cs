@@ -16,8 +16,16 @@ namespace coursework.UI.Commands
 
         public CommandResults Action(GameAccount? user)
         {
-            var result = _accountService.LogoutFromAccount();
-            return CommandResults.Failure;
+            try
+            {
+                var result = _accountService.LogoutFromAccount();
+                return CommandResults.Failure;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return CommandResults.Error;
+            }
         }
         public string ShowInfo()
         {

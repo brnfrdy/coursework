@@ -10,6 +10,8 @@ namespace coursework.UI.Commands
     {
         Success,
         Failure,
-        Exit
+        Exit,
+        NotLogined,
+        Error
     }
 }

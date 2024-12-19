@@ -1,4 +1,5 @@
 ﻿using coursework.GameAccounts;
+using coursework.Games;
 using coursework.Repository;
 using coursework.Service.Interface;
 using coursework.Service.Security;
@@ -42,20 +43,18 @@ public class GameAccountService : IGameAccountService
         var account = GetGameAccountByUsername(username);
         if (account == null)
         {
-            Console.WriteLine("Account does not exist.");
-            return false;
+            throw new Exception("Account does not exist.");
         }
         if (SecurityHelper.VerifyPassword(password, account.Password, account.PasswordSalt))
         {
-            Console.WriteLine("Succesfull login.");
             _loginAccount = account;
             return true;
         }
         else
         {
-            Console.WriteLine("Wrong password.");
-            return false;
+            throw new Exception("Wrong password.");
         }
+        return false;
     }
 
     public GameAccount? GetLoginedAccount()
@@ -67,8 +66,7 @@ public class GameAccountService : IGameAccountService
 
     public bool LogoutFromAccount()
     {
-        Console.WriteLine("Logout succesfully.");
-        return true;
+        throw new Exception("Logout succesfully.");
     }
     public void UpdateGameAccount(GameAccount account, string newUsername)
     {
@@ -79,7 +77,7 @@ public class GameAccountService : IGameAccountService
         }
         else
         {
-            Console.WriteLine("There is no account to update.");
+            throw new Exception("There is no account to update.");
         }
     }
     
@@ -92,12 +90,18 @@ public class GameAccountService : IGameAccountService
         }
         else
         {
-            Console.WriteLine("There is no account to delete.");
+            throw new Exception("There is no account to delete.");
         }
     }
 
-    public void PrintStats(GameAccount user)
+    public List<Game> PrintStats(GameAccount user)
     {
-        _accountRepository.PrintStats(user);
+        var context = _accountRepository.PrintStats(user);
+        var tmp = context.FindAll(g => g.Player1 == user || g.Player2 == user);
+        if (tmp == null)
+        {
+            throw new Exception("No games found.");
+        }
+        return tmp;
     }
 }

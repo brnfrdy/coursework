@@ -17,8 +17,15 @@ public class LoginToAccount : IUserInterface
         var username = "" + Console.ReadLine();
         Console.WriteLine("Enter password: ");
         var password = "" + Console.ReadLine();
-        var result = _accountService.LoginToAccount(username, password);
-        return result ? CommandResults.Success : CommandResults.Failure;
+        try{
+            var result = _accountService.LoginToAccount(username, password);
+            return result ? CommandResults.Success : CommandResults.Failure;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return CommandResults.Error;
+        }
     }
     public string ShowInfo()
     {

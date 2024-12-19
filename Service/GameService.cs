@@ -55,7 +55,7 @@ public class GameService : IGameService
         }
         else
         {
-            Console.WriteLine("Game not found.");
+            throw new Exception("Game not found.");
         }
     }
 }

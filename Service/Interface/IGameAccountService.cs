@@ -1,4 +1,5 @@
 ﻿using coursework.GameAccounts;
+using coursework.Games;
 
 namespace coursework.Service.Interface;
 
@@ -13,5 +14,5 @@ public interface IGameAccountService
     GameAccount? GetLoginedAccount();
     void UpdateGameAccount(GameAccount account, string newUsername);
     void DeleteGameAccount(GameAccount account);
-    void PrintStats(GameAccount user);
+    List<Game> PrintStats(GameAccount user);
 }

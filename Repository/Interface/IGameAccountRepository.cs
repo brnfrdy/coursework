@@ -1,4 +1,5 @@
 ﻿using coursework.GameAccounts;
+using coursework.Games;
 
 namespace coursework.Repository;
 
@@ -10,5 +11,5 @@ public interface IGameAccountRepository
     List<GameAccount> ReadAllGameAccounts();
     void UpdateGameAccount(GameAccount account);
     void DeleteGameAccount(GameAccount account);
-    void PrintStats(GameAccount user);
+    List<Game> PrintStats(GameAccount user);
 }

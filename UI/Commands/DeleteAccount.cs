@@ -22,8 +22,16 @@ namespace coursework.UI.Commands
             var response = Console.ReadLine();
             if (response == "yes")
             {
-                _accountService.DeleteGameAccount(user);
-                return CommandResults.Failure;
+                try
+                {
+                    _accountService.DeleteGameAccount(user);
+                    return CommandResults.Success;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return CommandResults.Failure;
+                }
             }
             else
             {

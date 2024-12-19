@@ -26,8 +26,15 @@ namespace coursework.UI.Commands
             }
             else
             {
-                _accountService.UpdateGameAccount(user, response);
-                return CommandResults.Success;
+                try{
+                    _accountService.UpdateGameAccount(user, response);
+                    return CommandResults.Success;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return CommandResults.Failure;
+                }
             }
         }
 
